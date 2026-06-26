@@ -1,67 +1,75 @@
 import { Link } from 'react-router-dom';
 
 function Home() {
-  // Data mock (nanti kita akan ambil dari database Supabase)
   const posts = [
     {
       id: 1,
-      title: "Kenapa React Sangat Popular Pada 2026?",
-      excerpt: "Satu pandangan mendalam kenapa framework dari Facebook ini masih merajai dunia frontend development...",
-      date: "12 Oct 2026",
-      category: "Frontend"
+      title: "Why is React Still So Popular in 2026?",
+      excerpt: "An in-depth look at why Facebook's UI framework continues to dominate frontend development...",
+      date: "Oct 12, 2026",
+      category: "Frontend",
+      image: "/frontend_banner.png"
     },
     {
       id: 2,
-      title: "Mula Belajar Supabase: Alternatif Firebase",
-      excerpt: "Cara pantas untuk bina backend lengkap dengan database Postgres dan Authentication...",
-      date: "15 Oct 2026",
-      category: "Backend"
+      title: "Getting Started with Supabase: Firebase Alternative",
+      excerpt: "The fastest way to build a complete backend with a Postgres database and Authentication...",
+      date: "Oct 15, 2026",
+      category: "Backend",
+      image: "/backend_banner.png"
     },
     {
       id: 3,
-      title: "Tips UI/UX Untuk Developer",
-      excerpt: "Macam mana nak buat website nampak 'mahal' walaupun anda tak pandai design...",
-      date: "18 Oct 2026",
-      category: "Design"
+      title: "UI/UX Tips for Developers",
+      excerpt: "How to make your website look 'premium' even if you have no design background...",
+      date: "Oct 18, 2026",
+      category: "Design",
+      image: "/design_banner.png"
     }
   ];
 
   return (
     <div>
-      <section className="text-center mb-20">
-        <h1 className="text-5xl md:text-6xl font-outfit font-extrabold tracking-tight mb-4">
-          Selamat Datang ke <span className="text-sky-400">Blog Saya</span>
+      <section className="text-center mb-20 mt-10">
+        <h1 className="text-5xl md:text-7xl font-outfit font-extrabold tracking-tight mb-6 text-white">
+          Welcome to <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-accent to-accentSecondary">My Blog</span>
         </h1>
-        <p className="text-slate-400 text-lg md:text-xl max-w-2xl mx-auto">
-          Saya menulis tentang perjalanan saya belajar Web Development, UI/UX dan perkara-perkara rawak tentang teknologi.
-        </p>
+        <p className="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto font-light">
+          I write about my journey learning Web Development, UI/UX, and random thoughts about technology.
+        </p> 
       </section>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {posts.map((post) => (
-          <div 
+          <Link 
+            to={`/post/${post.id}`}
             key={post.id} 
-            className="flex flex-col bg-slate-800/70 border border-white/10 rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)] hover:border-sky-400"
+            className="group flex flex-col bg-surface border border-surfaceBorder rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 hover:border-accent hover:shadow-[0_0_30px_rgba(139,92,246,0.15)]"
           >
-            <div className="w-full h-48 bg-gradient-to-br from-slate-800 to-slate-700 flex items-center justify-center text-white/20 font-outfit text-3xl font-bold">
-              {post.category}
-            </div>
-            
-            <div className="p-6 flex flex-col flex-1">
-              <span className="text-sm text-sky-400 font-semibold mb-2">{post.date}</span>
-              <h2 className="text-2xl font-outfit font-bold mb-3 leading-tight">{post.title}</h2>
-              <p className="text-slate-400 text-sm mb-6 flex-1">{post.excerpt}</p>
-              
-              <div className="mt-auto flex justify-between items-center">
-                <Link 
-                  to={`/post/${post.id}`} 
-                  className="bg-gradient-to-br from-sky-400 to-indigo-400 text-white px-5 py-2 rounded-lg font-semibold text-sm transition-all hover:brightness-110 hover:shadow-[0_0_15px_rgba(56,189,248,0.5)]"
-                >
-                  Baca Penuh
-                </Link>
+            <div className="w-full h-48 bg-[#0a0a0a] border-b border-surfaceBorder overflow-hidden relative">
+              <img 
+                src={post.image} 
+                alt={post.title} 
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-70 group-hover:opacity-100"
+              />
+              {/* Gradient overlay supaya teks tak tenggelam dan lebih kemas */}
+              <div className="absolute inset-0 bg-gradient-to-t from-surface to-transparent opacity-80"></div>
+              {/* Lencana Kategori di atas gambar */}
+              <div className="absolute top-4 right-4 bg-black/60 backdrop-blur-sm border border-white/10 px-3 py-1 rounded-full text-xs text-white font-semibold uppercase tracking-wider">
+                {post.category}
               </div>
             </div>
-          </div>
+            
+            <div className="p-8 flex flex-col flex-1">
+              <span className="text-xs text-accent uppercase tracking-wider font-bold mb-3">{post.date}</span>
+              <h2 className="text-2xl font-outfit font-bold mb-4 text-gray-100 leading-tight group-hover:text-white">{post.title}</h2>
+              <p className="text-gray-400 text-sm mb-6 flex-1 leading-relaxed">{post.excerpt}</p>
+              
+              <div className="mt-auto flex items-center text-sm font-semibold text-accentSecondary group-hover:text-accent transition-colors">
+                Read More <span className="ml-2 group-hover:translate-x-1 transition-transform">→</span>
+              </div>
+            </div>
+          </Link>
         ))}
       </div>
     </div>

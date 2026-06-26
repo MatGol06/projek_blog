@@ -6,21 +6,6 @@
 
 @layer base {
   body {
-    @apply bg-bgPrimary text-slate-50 min-h-screen relative overflow-x-hidden antialiased;
-  }
-  
-  /* Background animated glow (kept in CSS for cleaner code) */
-  body::before {
-    content: '';
-    position: fixed;
-    top: -20%;
-    left: -10%;
-    width: 50vw;
-    height: 50vw;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, transparent 70%);
-    filter: blur(100px);
-    z-index: -1;
-    animation: float 10s infinite ease-in-out alternate;
+    @apply bg-bgPrimary text-gray-200 min-h-screen relative overflow-x-hidden antialiased;
   }
 }

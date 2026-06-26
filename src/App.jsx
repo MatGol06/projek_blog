@@ -1,28 +1,30 @@
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import Home from './pages/Home';
 import Post from './pages/Post';
+import Contact from './pages/Contact';
+import Login from './pages/Login';
 
 function App() {
   return (
     <BrowserRouter>
-      <div className="flex flex-col min-h-screen font-sans">
+      <div className="flex flex-col min-h-screen font-sans selection:bg-accent selection:text-white">
         {/* Navigation Bar */}
-        <nav className="flex justify-between items-center py-6 px-6 md:px-12 bg-slate-800/50 backdrop-blur-md border-b border-white/10 sticky top-0 z-50">
-          <Link to="/" className="text-2xl font-outfit font-extrabold bg-gradient-to-br from-sky-400 to-indigo-400 bg-clip-text text-transparent">
-            MyDevBlog.
+        <nav className="flex justify-between items-center py-6 px-6 md:px-12 bg-black/80 backdrop-blur-md border-b border-surfaceBorder sticky top-0 z-50">
+          <Link to="/" className="text-2xl font-outfit font-extrabold tracking-wider text-white">
+            AzamTajuddin-Blog<span className="text-accent">.</span>
           </Link>
           <div className="flex gap-8">
-            <Link to="/" className="font-medium text-slate-400 hover:text-white transition-colors relative group">
-              Beranda
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-sky-400 to-indigo-400 transition-all duration-300 group-hover:w-full"></span>
+            <Link to="/" className="font-medium text-gray-400 hover:text-white transition-colors">
+              Home
             </Link>
-            <Link to="#" className="font-medium text-slate-400 hover:text-white transition-colors relative group">
-              Tentang
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-sky-400 to-indigo-400 transition-all duration-300 group-hover:w-full"></span>
+            <Link to="#" className="font-medium text-gray-400 hover:text-white transition-colors">
+              About
             </Link>
-            <Link to="#" className="font-medium text-slate-400 hover:text-white transition-colors relative group">
+            <Link to="/login" className="font-medium text-gray-400 hover:text-white transition-colors">
               Login
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-sky-400 to-indigo-400 transition-all duration-300 group-hover:w-full"></span>
+            </Link>
+            <Link to="/contact" className="font-medium text-gray-400 hover:text-white transition-colors">
+              Contact
             </Link>
           </div>
         </nav>
@@ -32,12 +34,14 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/post/:id" element={<Post />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/login" element={<Login/>}/>
           </Routes>
         </main>
 
         {/* Footer */}
-        <footer className="text-center p-8 text-slate-400 border-t border-white/10 bg-slate-800/30">
-          <p>© {new Date().getFullYear()} MyDevBlog. Dibina dengan React & Supabase.</p>
+        <footer className="text-center p-8 text-gray-500 border-t border-surfaceBorder bg-black">
+          <p>© {new Date().getFullYear()} AzamTajuddin-Blog. Built with React & Supabase.</p>
         </footer>
       </div>
     </BrowserRouter>

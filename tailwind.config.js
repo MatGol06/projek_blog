@@ -11,19 +11,12 @@ export default {
         outfit: ['Outfit', 'sans-serif'],
       },
       colors: {
-        bgPrimary: '#0f172a',
-        surface: 'rgba(30, 41, 59, 0.7)',
-        accent: '#38bdf8',
+        bgPrimary: '#000000',     /* Pure Black */
+        surface: '#111111',       /* Sangat Gelap (Dark Grey) */
+        surfaceBorder: '#222222', /* Border Halus */
+        accent: '#8b5cf6',        /* Neon Purple */
+        accentSecondary: '#3b82f6' /* Neon Blue */
       },
-      animation: {
-        'float': 'float 10s infinite ease-in-out alternate',
-      },
-      keyframes: {
-        float: {
-          '0%': { transform: 'translate(0, 0)' },
-          '100%': { transform: 'translate(5%, 5%)' },
-        }
-      }
     },
   },
   plugins: [],
