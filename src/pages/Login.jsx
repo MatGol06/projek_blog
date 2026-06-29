@@ -1,14 +1,31 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { supabase } from '../supabaseClient';
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        alert(`Log masuk dengan email: ${email}`);
-        // Nanti kita akan sambungkan butang ni dengan Supabase Auth
+        setLoading(true);
+
+        const {error} = await supabase.auth.signInWithPassword({
+            email: email,
+            password: password,
+        });
+
+        if (error) {
+            alert("Gagal Log Masuk: " + error.message);
+        } else {
+            navigate("/");
+            alert("Welcome Back,Admin!");
+            navigate('/');
+        }
+
+        setLoading(false);
     };
 
     return (
@@ -49,9 +66,10 @@ function Login() {
 
                     <button
                         type="submit"
-                        className="mt-2 bg-gradient-to-r from-accent to-accentSecondary text-white font-bold py-3 rounded-lg hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] hover:brightness-110 transition-all active:scale-[0.98]"
+                        disabled={loading}
+                        className="mt-2 bg-gradient-to-r from-accent to-accentSecondary text-white font-bold py-3 rounded-lg hover:shadow-[0_0_20px_rgba(139,92,246,0.4)] hover:brightness-110 transition-all active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                        Sign In
+                        {loading ? 'Sila Tunggu...' : 'Sign In'}
                     </button>
                 </form>
 

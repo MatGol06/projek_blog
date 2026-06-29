@@ -1,32 +1,26 @@
 import { Link } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { supabase } from '../supabaseClient';
 
 function Home() {
-  const posts = [
-    {
-      id: 1,
-      title: "Why is React Still So Popular in 2026?",
-      excerpt: "An in-depth look at why Facebook's UI framework continues to dominate frontend development...",
-      date: "Oct 12, 2026",
-      category: "Frontend",
-      image: "/frontend_banner.png"
-    },
-    {
-      id: 2,
-      title: "Getting Started with Supabase: Firebase Alternative",
-      excerpt: "The fastest way to build a complete backend with a Postgres database and Authentication...",
-      date: "Oct 15, 2026",
-      category: "Backend",
-      image: "/backend_banner.png"
-    },
-    {
-      id: 3,
-      title: "UI/UX Tips for Developers",
-      excerpt: "How to make your website look 'premium' even if you have no design background...",
-      date: "Oct 18, 2026",
-      category: "Design",
-      image: "/design_banner.png"
-    }
-  ];
+   const [posts, setPosts] = useState([]); 
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      const { data, error } = await supabase 
+        .from('posts')
+        .select('*')
+        .order('created_at', { ascending: false }); 
+      
+      if (error) {
+        console.log("Error tarik artikel:", error);
+      } else {                  
+        setPosts(data);
+      }  
+    };
+
+    fetchPosts();
+  }, []);
 
   return (
     <div>

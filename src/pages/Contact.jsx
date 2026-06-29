@@ -1,13 +1,25 @@
 import { useState } from 'react';
+import { supabase } from '../supabaseClient'; 
 
 function Contact() {
   const [isSubmitted, setIsSubmitted] = useState(false);
-
-  const handleSubmit = (e) => {
+  const [name, setName] = useState(''); 
+  const [email, setEmail] = useState('');
+  const [message, setMessage] = useState('');  
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsSubmitted(true);
-    // Di sini nanti kita akan hantar data ke pangkalan data (contohnya Supabase)
-  };
+     const {error} = await supabase.from('contacts').insert([
+      {name: name, email: email, message: message}]);  
+       
+      if (error){
+        alert("Alamak, ada masalah: " + error.message);
+      }else{
+        setIsSubmitted(true); 
+        setName('');
+        setEmail('');
+        setMessage('');
+      }
+    };
 
   return (
     <div className="max-w-3xl mx-auto">
@@ -46,6 +58,8 @@ function Contact() {
                   type="text" 
                   id="name" 
                   required
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   className="bg-black/50 border border-surfaceBorder rounded-lg px-4 py-3 text-white focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all"
                   placeholder="John Doe"
                 />
@@ -56,6 +70,8 @@ function Contact() {
                   type="email" 
                   id="email" 
                   required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="bg-black/50 border border-surfaceBorder rounded-lg px-4 py-3 text-white focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all"
                   placeholder="john@example.com"
                 />
@@ -67,7 +83,9 @@ function Contact() {
               <textarea 
                 id="message" 
                 rows="5" 
-                required
+                required 
+                value={message}
+                onChange={(e) => setMessage(e.target.value)} 
                 className="bg-black/50 border border-surfaceBorder rounded-lg px-4 py-3 text-white focus:outline-none focus:border-accent focus:ring-1 focus:ring-accent transition-all resize-none"
                 placeholder="How can I help you?"
               ></textarea>
